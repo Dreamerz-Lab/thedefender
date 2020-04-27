@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  rsKeyList:
+  - metadata:
+      entityId: 3292bbdb-29e9-468a-bf91-5a27749c65da
+    rs:
+      key: MissileSpeed
+      type: float
+      value: 5
+  rsLastCachedKeyList:
+  - metadata:
+      entityId: 3292bbdb-29e9-468a-bf91-5a27749c65da
+    rs:
+      key: MissileSpeed
+      type: float
+      value: 5
+  configId: a5094ec2-a8f5-42aa-9877-082037ae9a49
+  currentEnvironmentId: 1263a288-c49f-4440-bb77-37ca82107b66
+  environments:
+  - id: 1263a288-c49f-4440-bb77-37ca82107b66
+    appId: 
+    name: Development
+    description: 
+    createdAt: 2019-11-28T07:23:52Z
+    updatedAt: 2019-11-28T07:23:52Z
+  - id: 0d70cd7f-f589-43d9-a987-b7b508df99a7
+    appId: 
+    name: Release (Default)
+    description: 
+    createdAt: 2019-11-28T07:23:52Z
+    updatedAt: 2019-11-28T07:23:52Z
+  rulesList: []
+  lastCachedRulesList: []
+  addedRulesIDs: []
+  updatedRulesIDs: []
+  deletedRulesIDs: []
