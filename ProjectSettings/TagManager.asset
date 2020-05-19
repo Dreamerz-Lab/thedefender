@@ -8,6 +8,7 @@ TagManager:
   - RS
   - M
   - LM
+  - RM
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Controller
+  - GeneralShield
   - 
   - 
   - 

@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Defender.Prototype
-{
+namespace Defender.Prototype {
     //v1.0.1
-    [CreateAssetMenu(fileName = "New Wave", menuName = "Create Wave")]
-    public class WaveScriptableObject : ScriptableObject
-    {
+    //[CreateAssetMenu(fileName = "New Wave", menuName = "Create Wave")]
+    public class WaveScriptableObject : ScriptableObject {
         [System.Serializable]
-        public struct WaveCondition
-        {
+        public struct WaveCondition {
             public enum Conditions { missileCount, timer };
 
             public Conditions ConditionType;
@@ -17,8 +14,7 @@ namespace Defender.Prototype
         }
 
         [System.Serializable]
-        public struct MissileOrigin
-        {
+        public struct MissileOrigin {
             public enum OriginDirections { Forward, Right, Backward, Left };
 
             [Tooltip("Missile Origin Direction, From this direction it's angle will be calculated")]

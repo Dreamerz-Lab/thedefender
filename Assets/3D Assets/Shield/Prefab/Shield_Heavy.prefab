@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7395445761682064527}
   - component: {fileID: 9096101134860686600}
   - component: {fileID: 5390856385620268776}
-  - component: {fileID: 740688779846505669}
   m_Layer: 0
   m_Name: Shield_Heavy
   m_TagString: Untagged
@@ -55,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,16 +79,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &740688779846505669
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6394529556327043624}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6104263, y: 0.06612141, z: 0.6070869}
-  m_Center: {x: -0.0000001937151, y: -0.07761964, z: -0.0000020414595}

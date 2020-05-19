@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2417811694503656069}
   - component: {fileID: 8584251573471667877}
   - component: {fileID: 1279597599175462063}
-  - component: {fileID: 3868875945800371877}
+  - component: {fileID: 358942514493383389}
   m_Layer: 0
   m_Name: Shield_Lite_Rhand
   m_TagString: RS
@@ -56,6 +56,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -93,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.31240022, y: 0.1, z: 0.3787231}
   m_Center: {x: -0.000000007450581, y: -0.05, z: -0.00000020116572}
---- !u!114 &3868875945800371877
+--- !u!114 &358942514493383389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7787687517159366111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 052a74b5bba974120a53d39bb3d41280, type: 3}
+  m_Script: {fileID: 11500000, guid: 827317a0ae9e345e29240485cbc0211f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftShield: 0
