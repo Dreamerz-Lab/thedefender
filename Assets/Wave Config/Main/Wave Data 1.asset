@@ -26,3 +26,4 @@ MonoBehaviour:
   WaveEndCondition:
     ConditionType: 0
     Value: 10
+  NextWaveTimeOffset: 5

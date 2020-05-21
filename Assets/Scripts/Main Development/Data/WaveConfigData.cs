@@ -64,5 +64,7 @@ namespace Defender.Data {
 		//How this Wave will end
         [Space(6)]
         [Indent(1)] public WaveCondition WaveEndCondition;
+        //Time after which Next Wave will start
+        [Indent(1)] public int NextWaveTimeOffset;
     }
 }
