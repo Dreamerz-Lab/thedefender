@@ -34,10 +34,21 @@ namespace Defender.Core {
 		[SerializeField] private WaveConfigData.WaveCondition WaveEndCondition;
 
 		//Array of All the Incomings
-		[SerializeField] private Transform[] Incomings;
+		[SerializeField] private Transform[] IncomingPrefabs;
 
 		//List of all the Spawned Incomings, moving towards the player
-		[SerializeField] private List<Transform> MissilesIncoming;
+		public List<Transform> MissilesIncoming;
+		//List of all the Spawned Obstalces, moving towards it's direction
+		public List<Transform> ObstaclesIncoming;
+		//List of Target Directions of the Spawned Obstacles
+		public List<Vector3> Obstacles_Direction;
+
+		[Space(6)]
+		[Header("Block Spawn Points")]
+		//The Spawn points Transforms only from which Blocks can be spawned
+		[SerializeField] private Transform[] BlockSpawnTransforms;
+		//The Spawn points only from which Blocks can be spawned
+		[SerializeField] private Vector3[] BlockSpawnPoints;
 
 		//The Speed of Spawned Missiles
 		private float MissileSpeed;
@@ -111,6 +122,13 @@ namespace Defender.Core {
 		/// Unity Start Function logic
 		/// </summary>
 		private void Start() {
+			//Create new array based on the length of Transforms
+			BlockSpawnPoints = new Vector3[BlockSpawnTransforms.Length];
+			//Pass the Transform Positions to the Spawn Point Vectors
+			for (int i = 0; i < BlockSpawnTransforms.Length; i++) {
+				BlockSpawnPoints[i] = BlockSpawnTransforms[i].position;
+			}
+
 			isGameStart = false;
 
 			//The default Starting Index for Wave
@@ -196,8 +214,10 @@ namespace Defender.Core {
 
 			//Iterates through all the Missiles
 			for (int i = 0; i < MissilesIncoming.Count; i++) {
-				if (MissilesIncoming[i] == null)
+				if (MissilesIncoming[i] == null) {
+					MissilesIncoming.RemoveAt(i);
 					continue;
+				}
 
 				//get the normalized Direction of each missile from Player
 				_direction = (PlayerPosition - MissilesIncoming[i].position).normalized;
@@ -213,6 +233,17 @@ namespace Defender.Core {
 				//Move and Rotate missile towards the player
 				MissilesIncoming[i].SetPositionAndRotation(MissilesIncoming[i].position + _direction, _rotation);
 			}
+
+			for(int i = 0; i < ObstaclesIncoming.Count; i++) {
+				if(ObstaclesIncoming[i] == null) {
+					ObstaclesIncoming.RemoveAt(i);
+					Obstacles_Direction.RemoveAt(i);
+					continue;
+				}
+
+				//Move Forward
+				ObstaclesIncoming[i].position += (Obstacles_Direction[i] * _updatedMissileSpeed);
+			}
 		}
 
 		/// <summary>
@@ -220,37 +251,68 @@ namespace Defender.Core {
 		/// </summary>
 		private IEnumerator SpawnIncomingsTimeBased() {
 			while (WaveTime < WaveEndCondition.Value) {
+				//The Incoming Index to Spawn at Player
+				//Decide what to Spawn
+				int _index = (int)CurrentWave.incomings[Random.Range(2424, 9340) % CurrentWave.incomings.Length];
+
+				//If Block
+				if(_index >= 5) {
+					//The position on SpawnRadius based on the Last Spawn Angle
+					Vector3 _spawnPos = Player.position + new Vector3(Mathf.Sin(Mathf.Deg2Rad * LastSpawnAngle) * MissileSpawnRadius, 0f, Mathf.Cos(Mathf.Deg2Rad * LastSpawnAngle) * MissileSpawnRadius);
+
+					//Choose the nearest Spawn Point from the last Spawned Angle
+					int _spawnIndex = 0;
+
+					//Take the distance from First Spawn Point to the Spawn pos as Minimum
+					float _minDistance = Vector3.Distance(_spawnPos, BlockSpawnPoints[0]);
+					//Iterates to find the index of the Spawn point that is nearest the last spawn angle
+					for(int i =1; i< BlockSpawnPoints.Length; i++) {
+						float _distance = Vector3.Distance(_spawnPos, BlockSpawnPoints[i]);
+						if (_distance < _minDistance) {
+							_minDistance = _distance;
+							_spawnIndex = i;
+						}
+					}
+
+					//Set Spawn Pos as the nearest position from the angle
+					_spawnPos = BlockSpawnPoints[_spawnIndex];
+					
+					Vector3 _targetDirection = (PlayerPosition - _spawnPos).normalized;
+
+					Transform _obstacle = Instantiate(IncomingPrefabs[_index], _spawnPos, Quaternion.LookRotation(_targetDirection, Vector3.up));
+					//Add the Instantiated obstacle at Spawn Pos, into the List
+					ObstaclesIncoming.Add(_obstacle);
+					Obstacles_Direction.Add(_targetDirection);
+					//Destroy after 10s
+					Destroy(_obstacle.gameObject, 10f);
+
+				} else { //If anything else than blocks
+					//Current Wave Spawn Angle Range MinMax
+					float _angleRange = CurrentWave.SpawnAngle;
+					//The actual Spawn Angle Considering, AngleRange and Origin Direction
+					float _spawnAngle = (90f * (int)CurrentWave.OriginDirection) +
+						RandomRange(Mathf.Max(LastSpawnAngle - DeltaAngle, -_angleRange),
+						Mathf.Min(LastSpawnAngle + DeltaAngle, _angleRange));
+
+					//Spawn Angle Stored as Last Spawn Angle
+					LastSpawnAngle = _spawnAngle;
+
+					//The Direction of Spawn for the missile
+					Vector3 lDirection = new Vector3(Mathf.Sin(Mathf.Deg2Rad * _spawnAngle) * MissileSpawnRadius, RandomRange(CurrentWave.MinY, CurrentWave.MaxY), Mathf.Cos(Mathf.Deg2Rad * _spawnAngle) * MissileSpawnRadius);
+					//The Final Spawn Position of the Missile
+					Vector3 _spawnPos = Player.position + lDirection;
+
+					//Add the Instantiated Missile at Spawn Pos, into the List
+					MissilesIncoming.Add(Instantiate(IncomingPrefabs[_index], _spawnPos, Quaternion.LookRotation(-1 * lDirection)));
+				}
 #if UNITY_EDITOR
 				print("Spawned " + TotalMissileCount + " : " + Time.time);
 #endif
-				//Current Wave Spawn Angle Range MinMax
-				float _angleRange = CurrentWave.SpawnAngle;
-				//The actual Spawn Angle Considering, AngleRange and Origin Direction
-				float _spawnAngle = (90f * (int)CurrentWave.OriginDirection) +
-					RandomRange(Mathf.Max(LastSpawnAngle - DeltaAngle, -_angleRange),
-					Mathf.Min(LastSpawnAngle + DeltaAngle, _angleRange));
-
-				//Spawn Angle Stored as Last Spawn Angle
-				LastSpawnAngle = _spawnAngle;
-
-				//The Direction of Spawn for the missile
-				Vector3 lDirection = new Vector3(Mathf.Sin(Mathf.Deg2Rad * _spawnAngle), 0f, Mathf.Cos(Mathf.Deg2Rad * _spawnAngle)) * MissileSpawnRadius;
-				//The Final Spawn Position of the Missile
-				Vector3 _spawnPos = Player.position + lDirection;
-
-				//The Incoming Index to Spawn at Player
-				int _index = Random.Range(2424, 9340) % Incomings.Length;
-
-				Transform _spawn = Incomings[_index];
-
-				Transform _missile = Instantiate(_spawn, _spawnPos, Quaternion.LookRotation(-1 * lDirection));
-
-				MissilesIncoming.Add(_missile);
 
 				WaveTime += CurrentWave.MissileSpawnFrequency;
 				TotalMissileCount++;
 
-				Destroy(_missile.gameObject, 10f);
+				//Destroy(_missile.gameObject, 10f);
 				yield return SpawnFrequency;
 			}
 

@@ -45,6 +45,7 @@ namespace Defender.Core {
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other) {
             //WaveManager.PutBackToPool();
+            Destroy(other.gameObject);
         }
 
         /// <summary>

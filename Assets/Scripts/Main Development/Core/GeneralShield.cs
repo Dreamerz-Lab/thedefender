@@ -18,10 +18,12 @@ namespace Defender.Core {
                 if (other.CompareTag(RIGHT_MISSILE_TAG)) {
                     //GameManager.instance.TakeDamage();
                     //WaveManager.PutBackToPool();
+                    Destroy(other.gameObject);
                 }
                 //If Left Missile Hit
                 else if (other.CompareTag(LEFT_MISSILE_TAG)) {
                     print(other.name);
+                    Destroy(other.gameObject);
                     //WaveManager.PutBackToPool();
                 }
             } else //If Right Shield
@@ -30,10 +32,12 @@ namespace Defender.Core {
                 if (other.CompareTag(LEFT_MISSILE_TAG)) {
                     //GameManager.instance.TakeDamage();
                     //WaveManager.PutBackToPool();
+                    Destroy(other.gameObject);
                 }
                 //If Right Missile Hit
                 else if (other.CompareTag(RIGHT_MISSILE_TAG)) {
                     //WaveManager.PutBackToPool();
+                    Destroy(other.gameObject);
                 }
             }
         }

@@ -10,7 +10,8 @@ namespace Defender.Data {
 		//Missile Origin Directions
 		public enum OriginDirections { Forward, Right, Backward, Left };
 		//Incomings
-        public enum Incomings { LeftMissile, LeftMissileBall, RightMissile, RightMissileBall, FireBall, Blocks };
+        public enum Incomings { LeftMissile, LeftMissileBall, RightMissile,
+            RightMissileBall, FireBall, Block_Mid, Block_Side_L, Block_Side_R, Block_Top };
 
 		/// <summary>
 		/// Data for Wave Ending Condition

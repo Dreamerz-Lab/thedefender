@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4541618296154327858}
   - component: {fileID: 3110433589651816267}
   - component: {fileID: 5311446612275758072}
-  m_Layer: 0
+  - component: {fileID: 7974423023195824025}
+  m_Layer: 10
   m_Name: OBS_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7974423023195824025
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095797794482736111}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.046188, y: 1.0461882, z: 1.0461882}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8909392612012199708
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5620453545043885327}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Obstacles_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

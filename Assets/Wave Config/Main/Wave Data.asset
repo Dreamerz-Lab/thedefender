@@ -25,5 +25,5 @@ MonoBehaviour:
   BlockSpeed: 18
   WaveEndCondition:
     ConditionType: 1
-    Value: 50
+    Value: 10
   NextWaveTimeOffset: 3
