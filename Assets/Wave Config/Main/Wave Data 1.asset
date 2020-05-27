@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9736f7f90e84df6aefc712a79dede8, type: 3}
   m_Name: Wave Data 1
   m_EditorClassIdentifier: 
-  incomings: 05000000060000000700000008000000000000000200000004000000000000000200000004000000000000000000000000000000
+  incomings: 000000000200000004000000000000000200000004000000000000000000000000000000
   OriginDirection: 0
   SpawnAngle: 180
   DeltaAngle: 35
@@ -20,7 +20,7 @@ MonoBehaviour:
   AtATimeSpawn: 1
   MinY: 5
   MaxY: 15
-  Speed: 15
+  Speed: 18
   FireBallSpeed: 18
   BlockSpeed: 18
   WaveEndCondition:
