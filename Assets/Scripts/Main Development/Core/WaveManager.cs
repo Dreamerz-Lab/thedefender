@@ -106,6 +106,7 @@ namespace Defender.Core {
 		[SerializeField] private Transform Player;
 		//Holds The Updated Player Position
 		[SerializeField] private Vector3 PlayerPosition;
+		[SerializeField] private Vector3 TargetOffset;
 
 		//Random Object, for better Randomization
 		private System.Random random;
@@ -148,6 +149,10 @@ namespace Defender.Core {
 
 			//Gets the Updated Player Position
 			PlayerPosition = Player.position;
+			//Add Offset to the Position
+			PlayerPosition.x += TargetOffset.x;
+			PlayerPosition.y += TargetOffset.y;
+			PlayerPosition.z += TargetOffset.z;
 
 			//Updates the Missiles
 			MoveIncomings();

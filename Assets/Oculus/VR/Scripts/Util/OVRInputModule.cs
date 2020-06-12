@@ -599,8 +599,14 @@ namespace UnityEngine.EventSystems
             GetPointerData(kMouseLeftId, out leftData, true );
             leftData.Reset();
 
+#if UNITY_EDITOR
+            //Now set the world space ray. This ray is what the user uses to point at UI elements
+            //leftData.worldSpaceRay = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), rayTransform.forward);
+            leftData.worldSpaceRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+#else
             //Now set the world space ray. This ray is what the user uses to point at UI elements
             leftData.worldSpaceRay = new Ray(rayTransform.position, rayTransform.forward);
+#endif
             leftData.scrollDelta = GetExtraScrollDelta();
 
             //Populate some default values

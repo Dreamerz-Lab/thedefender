@@ -30189,7 +30189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -37788,7 +37788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237898184872978, guid: 4b614870148231e4bae86271d15dc9f4, type: 3}
       propertyPath: m_TagString
-      value: FB
+      value: RM
       objectReference: {fileID: 0}
     - target: {fileID: 4488174889109102, guid: 4b614870148231e4bae86271d15dc9f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52072,6 +52072,7 @@ MonoBehaviour:
   SpawnRadiusColor: {r: 1, g: 1, b: 1, a: 1}
   Player: {fileID: 864276516}
   PlayerPosition: {x: 0, y: 0, z: 0}
+  TargetOffset: {x: 0, y: -0.4, z: 0}
 --- !u!1 &1984203057
 GameObject:
   m_ObjectHideFlags: 0

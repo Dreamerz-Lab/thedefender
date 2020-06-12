@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9736f7f90e84df6aefc712a79dede8, type: 3}
   m_Name: Wave Data 1
   m_EditorClassIdentifier: 
-  incomings: 000000000200000004000000000000000200000004000000000000000000000000000000
+  incomings: 00000000020000000000000002000000040000000000000002000000000000000200000008000000020000000000000002000000060000000000000002000000000000000200000007000000000000000200000000000000020000000500000000000000000000000400000002000000
   OriginDirection: 0
   SpawnAngle: 180
-  DeltaAngle: 35
-  MissileSpawnFrequency: 1.3
+  DeltaAngle: 18
+  MissileSpawnFrequency: 1.2
   AtATimeSpawn: 1
   MinY: 5
   MaxY: 15
@@ -25,5 +25,5 @@ MonoBehaviour:
   BlockSpeed: 18
   WaveEndCondition:
     ConditionType: 0
-    Value: 100
+    Value: 200
   NextWaveTimeOffset: 5
