@@ -14,14 +14,12 @@ namespace Defender.Core {
 	/// </summary>
 	public class GameManager : MonoBehaviour {
 		#region EditorDebugging
-
 #if UNITY_EDITOR
 		[Button("Increase Heavy Shield Count")]
 		private void IncreaseHeavyShield() {
 			HeavyShieldCount++;
 		}
 #endif
-
 		#endregion
 
 		#region Variables
@@ -29,30 +27,17 @@ namespace Defender.Core {
 		//GameManager Singleton
 		public static GameManager instance;
 
-		#region WaveData
-
-		[Header("Wave Config Data")]
-		//Holds the Component of Wave Manager
+		#region WAVE
+		[Header("Wave Data")]
+		//The Wave Manager to handle all Wave Logics
 		[SerializeField] private WaveManager m_WaveManager;
-		//Holds all the Waves of the Game
-		[SerializeField] private WaveConfigData[] m_AllWaves;
-#if UNITY_EDITOR
-		[ReadOnly]
-#endif
-		//Current Wave
-		[SerializeField] private WaveConfigData m_CurrentWave;
-		//The Ending condition of the Current Wave
-		private WaveConfigData.WaveCondition m_WaveEndCondition;
-		[SerializeField] private int m_CurrentIndex = 0;
-		#endregion //WaveData
+		#endregion
 
 		#region Heavy Shield
-
 		[Space(6)]
 		[Header("Heavy Shield Data")]
 		//The Heavy Shield Count, No. of Times Shield can be activated
-		[SerializeField]
-		private int m_heavyShieldCount = 4;
+		[SerializeField] private int m_heavyShieldCount = 4;
 
 		public int HeavyShieldCount {
 			get { return m_heavyShieldCount; }
@@ -63,8 +48,7 @@ namespace Defender.Core {
 					value = 0;
 					UIManager.instace.HeavyShieldCount_Img.fillAmount = 0;
 					FusionCollidersEnableState(false);
-				}
-				else { //Else, Activates the Fusion Colliders
+				} else { //Else, Activates the Fusion Colliders
 					FusionCollidersEnableState(true);
 					//Clams the value to 4
 					value = value > 4 ? 4 : value;
@@ -78,14 +62,11 @@ namespace Defender.Core {
 
 		//The Component that handles Heavy Shield Activation
 		[SerializeField] private BoxCollider[] FusionColliders;
-
 		//The Active Status of the Heavy Shield
 		public bool isHeavyShieldActive = false;
-
 		//The Timer for the Heavy Shield
 		//After that the Shield will be disabled
 		public float HeavyShieldTimer = 5f;
-
 		#endregion //HeavyShield Region
 
 		#endregion //Variables Region
@@ -106,51 +87,43 @@ namespace Defender.Core {
 			//Updating the Heavy Shield Count
 			HeavyShieldCount = m_heavyShieldCount;
 
-			m_CurrentIndex = 0;
-			
-			// Invoke(nameof(GameStart), 1f);
+			//Start the Game
+			Invoke(nameof(GameStart), 2f);
 		}
 
 		#endregion
 
 		#region PublicFunctions
-
 		/// <summary>
-		/// The Function Responsible to start the Game
+		/// Function that hanldes Game start logic
 		/// </summary>
 		public void GameStart() {
-			//Initialize the First wave as CurrentWave
-			m_CurrentWave = m_AllWaves[m_CurrentIndex];
-			//Get the Wave End Condition Data
-			m_WaveEndCondition = m_CurrentWave.WaveEndCondition;
-			
-			//Setup the First Wave and Start Spawner
-			m_WaveManager.StartWave(m_CurrentWave);
+#if UNITY_EDITOR
+			print("GAME STARTED");
+#endif
+			//Start Wave Update Logic
+			m_WaveManager.isGameStart = true;
+
+			//The Wave is setup
+			m_WaveManager.SetupNextWave();
+			//Invoke(nameof(GameEnd), 5f);
 		}
 
 		/// <summary>
-		/// The Function Responsible for Game Ending
+		/// The Function that handles Game Ending logic
 		/// </summary>
 		public void GameEnd() {
-
+			m_WaveManager.isGameStart = false;
 		}
 
 		public void GetNextWave() {
-			#if UNITY_EDITOR
-			print("Next Wave Get");
-			#endif
-			//The Current index will be cyclic when it reaches the all wave count
-			m_CurrentIndex = (m_CurrentIndex + 1)%m_AllWaves.Length;
-			
-			//Initialize the First wave as CurrentWave
-			m_CurrentWave = m_AllWaves[m_CurrentIndex];
-			//Get the Wave End Condition Data
-			m_WaveEndCondition = m_CurrentWave.WaveEndCondition;
-			
-			//Setup the First Wave and Start Spawner
-			m_WaveManager.StartWave(m_CurrentWave);
+
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="damage"></param>
 		public void TakeDamage(float damage) {
 
 		}

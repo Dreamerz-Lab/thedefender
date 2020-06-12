@@ -9,6 +9,7 @@ TagManager:
   - M
   - LM
   - RM
+  - FB
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - Controller
   - GeneralShield
-  - 
+  - Obstacles
   - 
   - 
   - 

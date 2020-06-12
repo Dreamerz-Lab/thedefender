@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -3481846, guid: e75b08976a2f54323a51d5bdf09047c5, type: 3}
+  m_Script: {fileID: -3481846, guid: 0bdda04833c0546779c090925d6d3eac, type: 3}
   m_Name: SceneListData
   m_EditorClassIdentifier: 
   FavoriteScenes:
   - Assets/Scenes/Scene The Defender.unity
-  - Assets/Scenes/Ui Setup.unity
+  - Assets/Scenes/-001_SplashScreenScene.unity
   - Assets/Scenes/Env_Setup.unity
+  - Assets/Scenes/-002_UiScene.unity
+  - Assets/Scenes/Ui Setup.unity
   BuildScenes:
   - {fileID: 102900000, guid: d11383942bd7c428da656c9090761f89, type: 3}
   BuildScenes_Enabled: 01

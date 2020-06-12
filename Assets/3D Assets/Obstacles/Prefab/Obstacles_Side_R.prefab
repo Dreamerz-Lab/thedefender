@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3313953412950481902}
-  m_Layer: 0
-  m_Name: Obstacles_Side
+  m_Layer: 10
+  m_Name: Obstacles_Side_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992524847586847229}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.559, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4744232956481044844}
@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 4744232956481044844}
   - component: {fileID: 2104729593368062464}
   - component: {fileID: 6709714110584230782}
-  m_Layer: 0
+  - component: {fileID: 6710423177540143713}
+  m_Layer: 10
   m_Name: OBS_Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,3 +111,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6710423177540143713
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7534128599100341487}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0358799, y: 0.15677468, z: 1.4763203}
+  m_Center: {x: -0.003081113, y: 2.019484e-28, z: 0.000000059604645}
