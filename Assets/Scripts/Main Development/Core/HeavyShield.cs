@@ -25,7 +25,7 @@ namespace Defender.Core {
 		/// UNITY START CALLBACK
 		/// </summary>
 		private void Start() {
-            ShieldTimer_Img = UI.UIManager.instace.HeavyShieldCount_Img;
+            ShieldTimer_Img = UI.GamePlayUI.instance.HeavyShieldCount_Img;
         }
 
 		/// <summary>
@@ -44,6 +44,9 @@ namespace Defender.Core {
         /// </summary>
         /// <param name="other"></param>
         private void OnTriggerEnter(Collider other) {
+            Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.LTouch, 0.1f, 1, 0.045f);
+            Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.RTouch, 0.1f, 1, 0.045f);
+
             //WaveManager.PutBackToPool();
             Destroy(other.gameObject);
         }
@@ -53,7 +56,7 @@ namespace Defender.Core {
         /// </summary>
         private void Update() {
             //Center Position
-            PositionShieldAtCenter();
+            //PositionShieldAtCenter();
 
 			//Updates UI Shield Timer
             ShieldTimer_Img.fillAmount -= Time.deltaTime / DisableTimer * 0.25f;

@@ -88,7 +88,7 @@ namespace Defender.UI {
 				Bottom_Flare_SQNC.PlaySequence();
 
 				//Menu Open Sound
-				UIManager.instace.PlayMenuOpen();
+				Core.AudioManager.instance.PlayMenuOpen();
 			});
 		}
 
@@ -100,7 +100,7 @@ namespace Defender.UI {
 		/// </summary>
 		public void ClosePrivacyPolicy() {
 			//Menu Close Sound
-			UIManager.instace.PlayMenuClose();
+			Core.AudioManager.instance.PlayMenuClose();
 
 			//Pause Flare Sequence
 			Top_Flare_SQNC.StopSequence();

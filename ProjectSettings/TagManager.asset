@@ -10,6 +10,7 @@ TagManager:
   - LM
   - RM
   - FB
+  - OBS
   layers:
   - Default
   - TransparentFX
@@ -22,9 +23,9 @@ TagManager:
   - Controller
   - GeneralShield
   - Obstacles
-  - 
-  - 
-  - 
+  - Body
+  - Missiles
+  - HeavyShield
   - 
   - 
   - 

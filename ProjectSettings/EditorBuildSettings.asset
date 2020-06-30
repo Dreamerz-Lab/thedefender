@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/-001_SplashScreenScene.unity
+    guid: a613f022a1815694bbfd1c58dfa6f0cd
+  - enabled: 1
+    path: Assets/Scenes/-002_UiScene.unity
+    guid: 0c5b60d7325c74b2da0eae552ddb6187
+  - enabled: 1
     path: Assets/Scenes/Scene The Defender.unity
     guid: d11383942bd7c428da656c9090761f89
   m_configObjects:

@@ -23,14 +23,11 @@ namespace Defender.UI {
 		#region BG_PANEL_VARIABLES
 		[Space(6)]
 		[Header("Background Panel")]
-#if UNITY_EDITOR
-		[ReadOnly]
-#endif
-		private bool isMainPanelOpen = false;
 		[SerializeField] private float MainMenu_Speed = 0.3f;
 		[SerializeField] private CanvasGroup MainMenu_BG;
 		[SerializeField] private Transform MainMenu_TRNS;
 		[SerializeField] private AnimationCurve MainMenu_Ease;
+		private bool isMainPanelOpen = false;
 
 		[Space(6)]
 		[SerializeField] private FlareGlowSequence MainMenuFlare;
@@ -56,13 +53,13 @@ namespace Defender.UI {
 			Btn_Panel_Pos = Btn_Panel_TRNS.anchoredPosition;
 
 			//Deactivate Button Group
-			CloseCanvasGroup(Btn_Panel_CG);
+			CanvasGroupUtils.CloseCanvasGroup(Btn_Panel_CG);
 			//Deactivate BG
-			CloseCanvasGroup(MainMenu_BG);
+			CanvasGroupUtils.CloseCanvasGroup(MainMenu_BG);
 			//Deactivates Other Sections
-			CloseCanvasGroup(HelpSection_CG);
-			CloseCanvasGroup(SettingsSection_CG);
-			CloseCanvasGroup(CreditsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(HelpSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(SettingsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(CreditsSection_CG);
 		}
 		#endregion
 
@@ -77,9 +74,9 @@ namespace Defender.UI {
 				return;
 			}
 
-			OpenCanvasGroup(HelpSection_CG);
-			CloseCanvasGroup(SettingsSection_CG);
-			CloseCanvasGroup(CreditsSection_CG);
+			CanvasGroupUtils.OpenCanvasGroup(HelpSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(SettingsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(CreditsSection_CG);
 		}
 
 		/// <summary>
@@ -92,9 +89,9 @@ namespace Defender.UI {
 				return;
 			}
 
-			CloseCanvasGroup(HelpSection_CG);
-			OpenCanvasGroup(SettingsSection_CG);
-			CloseCanvasGroup(CreditsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(HelpSection_CG);
+			CanvasGroupUtils.OpenCanvasGroup(SettingsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(CreditsSection_CG);
 		}
 
 		/// <summary>
@@ -107,9 +104,9 @@ namespace Defender.UI {
 				return;
 			}
 
-			CloseCanvasGroup(HelpSection_CG);
-			CloseCanvasGroup(SettingsSection_CG);
-			OpenCanvasGroup(CreditsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(HelpSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(SettingsSection_CG);
+			CanvasGroupUtils.OpenCanvasGroup(CreditsSection_CG);
 		}
 
 #if UNITY_EDITOR
@@ -140,7 +137,7 @@ namespace Defender.UI {
 				//Invoke On Complete Events
 				//OnPrivacyPolicy_Show.Invoke();
 
-				UIManager.instace.PlayMenuOpen();
+				Core.AudioManager.instance.PlayMenuOpen();
 				//OpenMainMenuBG();
 			});
 		}
@@ -153,15 +150,15 @@ namespace Defender.UI {
 		/// </summary>
 		public void CloseMainMenuBG() {
 			//Menu Close Sound
-			UIManager.instace.PlayMenuClose();
+			Core.AudioManager.instance.PlayMenuClose();
 
 			//Pause Flare Sequence
 			MainMenuFlare.StopSequence();
 
 			//Deactivates Other Sections
-			CloseCanvasGroup(HelpSection_CG);
-			CloseCanvasGroup(SettingsSection_CG);
-			CloseCanvasGroup(CreditsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(HelpSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(SettingsSection_CG);
+			CanvasGroupUtils.CloseCanvasGroup(CreditsSection_CG);
 
 			CloseButtonGroup();
 
@@ -173,24 +170,6 @@ namespace Defender.UI {
 				//Invoke On Close Complete Event
 				//OnPrivacyPolicy_Close.Invoke();
 				isMainPanelOpen = false;
-			});
-		}
-
-		/// <summary>
-		/// This function cl0se
-		/// </summary>
-		private void CloseButtonGroup() {
-			//Menu Close Sound
-			//UIManager.instace.PlayMenuClose();
-
-			//Fade In BG
-			Btn_Panel_CG.DOFade(0f, Btn_Panel_Speed).SetEase(Btn_Panel_Ease).OnComplete(() => {
-				Btn_Panel_CG.blocksRaycasts = false;
-				Btn_Panel_CG.interactable = false;
-
-				//Invoke On Close Complete Event
-				//OnPrivacyPolicy_Close.Invoke();
-				//CloseMainMenuBG();
 			});
 		}
 
@@ -225,25 +204,22 @@ namespace Defender.UI {
 					MainMenuFlare.PlaySequence();
 
 					//Menu Open Sound
-					UIManager.instace.PlayMenuOpen();
+					Core.AudioManager.instance.PlayMenuOpen();
 				});
 			}
 		}
 		#endregion
 
 		#region PRIVATE_FUNCTIONS
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void OpenCanvasGroup(CanvasGroup canvasGroup) {
-			canvasGroup.alpha = 1f;
-			canvasGroup.blocksRaycasts = true;
-			canvasGroup.interactable = true;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void CloseCanvasGroup(CanvasGroup canvasGroup) {
-			canvasGroup.alpha = 0f;
-			canvasGroup.blocksRaycasts = false;
-			canvasGroup.interactable = false;
+		/// <summary>
+		/// This function cl0se
+		/// </summary>
+		private void CloseButtonGroup() {
+			//Fade In BG
+			Btn_Panel_CG.DOFade(0f, Btn_Panel_Speed).SetEase(Btn_Panel_Ease).OnComplete(() => {
+				Btn_Panel_CG.blocksRaycasts = false;
+				Btn_Panel_CG.interactable = false;
+			});
 		}
 		#endregion
 	}

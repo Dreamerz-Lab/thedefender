@@ -30,7 +30,7 @@ namespace Defender.Utility {
 
 		//UnityEvent Called When Toggled
 		[Space(6)]
-		public UnityEvent OnToggleChanged;
+		public UnityEvent<bool> OnToggleChanged;
 		public UnityEvent OnToggleOn;
 		public UnityEvent OnToggleOff;
 
@@ -41,9 +41,11 @@ namespace Defender.Utility {
 			if (isToggle) {
 				ButtonSwitch.anchoredPosition = SwitchOnPosition;
 				SwitchBg_Img.color = TurnOnColor;
+				OnToggleOn.Invoke();
 			} else {
 				ButtonSwitch.anchoredPosition = SwitchOffPosition;
 				SwitchBg_Img.color = TurnOffColor;
+				OnToggleOff.Invoke();
 			}
 		}
 
@@ -62,7 +64,7 @@ namespace Defender.Utility {
 
 			ButtonSwitch_Img.color = OnNormal;
 
-			OnToggleChanged.Invoke();
+			OnToggleChanged.Invoke(isToggle);
 		}
 
 		public void OnPointerEnter(PointerEventData eventData) {

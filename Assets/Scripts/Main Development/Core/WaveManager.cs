@@ -25,6 +25,14 @@ namespace Defender.Core {
 		//Current Wave Index
 		[SerializeField] private int m_CurrentIndex = 0;
 
+		//Counts The Number of Waves Passed
+#if UNITY_EDITOR
+		[ReadOnly]
+#endif
+		[Space(6)]
+		[SerializeField] private int WaveCounter = 1;
+		[SerializeField] private TMPro.TMP_Text WaveCounter_TXT;
+		[SerializeField] private UnityEngine.UI.Image WaveBar_IMG;
 
 		[Header("Current Wave Config")]
 		//The Current wave of the Game
@@ -69,11 +77,11 @@ namespace Defender.Core {
 #endif
 		[SerializeField] private int TotalMissileCount = 0;
 
-		//Holds the WaveEnd status
-#if UNITY_EDITOR
-		[ReadOnly]
-#endif
-		[SerializeField] private bool isWaveEnd = false;
+//		//Holds the WaveEnd status
+//#if UNITY_EDITOR
+//		[ReadOnly]
+//#endif
+//		[SerializeField] private bool isWaveEnd = false;
 
 		//Spawn Frequency
 		private WaitForSeconds SpawnFrequency;
@@ -106,7 +114,7 @@ namespace Defender.Core {
 		[SerializeField] private Transform Player;
 		//Holds The Updated Player Position
 		[SerializeField] private Vector3 PlayerPosition;
-		[SerializeField] private Vector3 TargetOffset;
+		public Vector3 TargetOffset;
 
 		//Random Object, for better Randomization
 		private System.Random random;
@@ -135,6 +143,10 @@ namespace Defender.Core {
 			//The default Starting Index for Wave
 			m_CurrentIndex = 0;
 
+			//Init Wave Counter Data
+			WaveCounter = 1;
+			WaveCounter_TXT.text = WaveCounter.ToString();
+
 			//Therefore, First wave will Always start from Forward
 			//Ignoring Wave Missile Direction at the Beginning
 			LastSpawnAngle = 0f;
@@ -156,9 +168,6 @@ namespace Defender.Core {
 
 			//Updates the Missiles
 			MoveIncomings();
-
-			//Check and Setup Next Wave
-			NextWaveCheck();
 		}
 
 
@@ -174,6 +183,28 @@ namespace Defender.Core {
 		#endregion
 
 		#region PUBLIC_FUNCTIONS
+		public void StopWaveManager() {
+			isGameStart = false;
+			UI.GamePlayUI.instance.gameOverMenu.UpdateWaveBoard(WaveCounter);
+
+			//The default Starting Index for Wave
+			m_CurrentIndex = 0;
+
+			//Init Wave Counter Data
+			WaveCounter = 1;
+			WaveCounter_TXT.text = WaveCounter.ToString();
+
+			//Resets the Current Wave counting data
+			WaveTime = 0f;
+			TotalMissileCount = 0;
+
+			LastSpawnAngle = 0f;
+
+			//If an older routine is still running, it will be stopped
+			if (SpawningRoutine != null)
+				StopCoroutine(SpawningRoutine);
+		}
+
 		/// <summary>
 		/// Cache next wave data
 		/// </summary>
@@ -256,6 +287,10 @@ namespace Defender.Core {
 		/// </summary>
 		private IEnumerator SpawnIncomingsTimeBased() {
 			while (WaveTime < WaveEndCondition.Value) {
+				//When Game Paused, Wait until unpause
+				if (!isGameStart)
+					yield return new WaitUntil(() => { return isGameStart; });
+
 				//The Incoming Index to Spawn at Player
 				//Decide what to Spawn
 				int _index = (int)CurrentWave.incomings[Random.Range(2424, 9340) % CurrentWave.incomings.Length];
@@ -317,12 +352,16 @@ namespace Defender.Core {
 				WaveTime += CurrentWave.MissileSpawnFrequency;
 				TotalMissileCount++;
 
+				//Update Wave Progress Bar
+				WaveBar_IMG.fillAmount = 1 - (WaveTime/WaveEndCondition.Value);
+
 				//Destroy(_missile.gameObject, 10f);
 				yield return SpawnFrequency;
 			}
 
 			//Update wave as finished
-			isWaveEnd = true;
+			//Check and Setup Next Wave
+			NextWaveCheck();
 		}
 
 		/// <summary>
@@ -330,19 +369,19 @@ namespace Defender.Core {
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void NextWaveCheck() {
-			//Update to Next Wave
-			if (isWaveEnd) {
-				//New Wave will be started
-				//WaveEnd status is reset
-				isWaveEnd = false;
+			//New Wave will be started
+			//WaveEnd status is reset
+			//isWaveEnd = false;
 
-				//Update Wave Index
-				//Circular Index ++
-				m_CurrentIndex = (m_CurrentIndex + 1) % Waves.Length;
+			WaveCounter++;
+			WaveCounter_TXT.text = WaveCounter.ToString();
 
-				//Start New Wave after NextWaveTimeOffset
-				Invoke(nameof(SetupNextWave), CurrentWave.NextWaveTimeOffset);
-			}
+			//Update Wave Index
+			//Circular Index ++
+			m_CurrentIndex = (m_CurrentIndex + 1) % Waves.Length;
+
+			//Start New Wave after NextWaveTimeOffset
+			Invoke(nameof(SetupNextWave), CurrentWave.NextWaveTimeOffset);
 		}
 
 		/// <summary>

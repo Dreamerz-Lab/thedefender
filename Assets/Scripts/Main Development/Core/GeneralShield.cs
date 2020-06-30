@@ -16,13 +16,14 @@ namespace Defender.Core {
             if (isLeftShield) {
                 //If Right Missile Hit
                 if (other.CompareTag(RIGHT_MISSILE_TAG)) {
-                    //GameManager.instance.TakeDamage();
-                    //WaveManager.PutBackToPool();
-                    Destroy(other.gameObject);
+                    Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.LTouch, 0.2f, 1, 0.06f);
+                    GameManager.instance.TakeDamage();
+					//WaveManager.PutBackToPool();
+					Destroy(other.gameObject);
                 }
                 //If Left Missile Hit
                 else if (other.CompareTag(LEFT_MISSILE_TAG)) {
-                    print(other.name);
+                    Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.LTouch);
                     Destroy(other.gameObject);
                     //WaveManager.PutBackToPool();
                 }
@@ -30,13 +31,14 @@ namespace Defender.Core {
               {
                 //If Left Missile Hit
                 if (other.CompareTag(LEFT_MISSILE_TAG)) {
-                    //GameManager.instance.TakeDamage();
+                    Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.RTouch, 0.2f, 1, 0.06f);
+                    GameManager.instance.TakeDamage();
                     //WaveManager.PutBackToPool();
                     Destroy(other.gameObject);
                 }
                 //If Right Missile Hit
                 else if (other.CompareTag(RIGHT_MISSILE_TAG)) {
-                    //WaveManager.PutBackToPool();
+                    Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.RTouch);
                     Destroy(other.gameObject);
                 }
             }

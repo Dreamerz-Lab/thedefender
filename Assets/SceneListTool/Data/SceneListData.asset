@@ -19,5 +19,7 @@ MonoBehaviour:
   - Assets/Scenes/-002_UiScene.unity
   - Assets/Scenes/Ui Setup.unity
   BuildScenes:
+  - {fileID: 102900000, guid: a613f022a1815694bbfd1c58dfa6f0cd, type: 3}
+  - {fileID: 102900000, guid: 0c5b60d7325c74b2da0eae552ddb6187, type: 3}
   - {fileID: 102900000, guid: d11383942bd7c428da656c9090761f89, type: 3}
-  BuildScenes_Enabled: 01
+  BuildScenes_Enabled: 010101

@@ -72,10 +72,13 @@ namespace Defender.Core {
         /// Activates the Heavy Shield
         /// </summary>
         private void ActivateHeavyShield() {
+            Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.LTouch, 0.2f, 1, 0.2f);
+            Utility.HapticUtility.instance.HapticOn(OVRInput.Controller.RTouch, 0.2f, 1, 0.2f);
+
             GameManager.instance.isHeavyShieldActive = isHeavyShieldActive = true;
 
             ShieldParticle.SetActive(true);
-            HeavyShield.SetActive(true);
+            //HeavyShield.SetActive(true);
         }
         #endregion
     }
