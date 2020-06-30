@@ -110,6 +110,9 @@ namespace Defender.Core {
 		//The Timer for the Heavy Shield
 		//After that the Shield will be disabled
 		public float HeavyShieldTimer = 5f;
+
+		[SerializeField] private float HeavyShieldUpdateFrequency = 4f;
+		private float shieldTimeCounter = 0f;
 		#endregion //HeavyShield Region
 
 		#region SCORE_VARIABLES
@@ -184,11 +187,19 @@ namespace Defender.Core {
 
 			//Player health Updater
 			healthTimeCounter += deltaTime;
+			//Shield Delta updater
+			shieldTimeCounter += deltaTime;
 			GamePlayUI.instance.PlayerHealthCount_Img.fillAmount += (deltaTime / HealthUpdateFrequency) * 0.25f;
+			GamePlayUI.instance.HeavyShieldCount_Img.fillAmount += (deltaTime / HeavyShieldUpdateFrequency) * 0.25f;
 
 			if (healthTimeCounter > HealthUpdateFrequency) {
 				healthTimeCounter = 0f;
 				PlayerHealth++;
+			}
+
+			if (shieldTimeCounter > HeavyShieldUpdateFrequency) {
+				shieldTimeCounter = 0f;
+				HeavyShieldCount++;
 			}
 		}
 		#endregion
