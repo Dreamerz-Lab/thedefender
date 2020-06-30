@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9736f7f90e84df6aefc712a79dede8, type: 3}
-  m_Name: Wave Data 2
+  m_Name: Wave Data 7
   m_EditorClassIdentifier: 
-  incomings: 00000000020000000000000002000000000000000200000000000000020000000800000000000000020000000000000002000000
+  incomings: 00000000020000000000000002000000040000000000000002000000000000000200000008000000020000000000000002000000060000000000000002000000000000000200000007000000000000000200000000000000020000000500000000000000000000000400000002000000
   OriginDirection: 0
-  SpawnAngle: 90
-  DeltaAngle: 15
-  MissileSpawnFrequency: 1.1
+  SpawnAngle: 120
+  DeltaAngle: 18
+  MissileSpawnFrequency: 0.9
   AtATimeSpawn: 1
   MinY: 5
   MaxY: 15
-  Speed: 19
+  Speed: 20
   FireBallSpeed: 18
   BlockSpeed: 18
   WaveEndCondition:
-    ConditionType: 1
-    Value: 30
-  NextWaveTimeOffset: 3
+    ConditionType: 0
+    Value: 50
+  NextWaveTimeOffset: 5

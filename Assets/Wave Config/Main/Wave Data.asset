@@ -15,7 +15,7 @@ MonoBehaviour:
   incomings: 0000000002000000
   OriginDirection: 0
   SpawnAngle: 45
-  DeltaAngle: 30
+  DeltaAngle: 18
   MissileSpawnFrequency: 1.3
   AtATimeSpawn: 1
   MinY: 5
